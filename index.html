@@ -22,14 +22,23 @@
   </head>
   <body>
     <section id="abstract">
-      <p>This is required.</p>
+      <p>Identifiers in ActivityPub tend to be HTTPS URIs. The use of WebFinger allows for discovery of an actor's identifier given a username and a hostname, which may be more socially salient or otherwise easier to communicate across various contexts and media. The username and hostname are resolved at the WebFinger endpoint of the hostname in order to discover a link to an actor associated with the user's account, and that actor similarly can be back-linked to the username and hostname.</p>
     </section>
     <section id="sotd">
       <p>This is required.</p>
     </section>
     <section class="informative">
       <h2>Motivation</h2>
-      <p>TBD</p>
+      <p>Consider an HTTPS URI of the form <code>https://social.example/actors/9c5b94b1-35ad-49bb-b118-8e8fc24abf80</code> being used as an identifier for an actor associated with a user account. Communicating this digitally may be done by simply using the HTTPS URI as-is, as a hyperlink reference. However, communicating this verbally or in a space-constrained visual format can be difficult. WebFinger allows communicating aliases of the form <code>alyssa@social.example</code>, which are easier to work with in the previously-cited cases.</p>
+      <p>Additional benefits of using WebFinger include smoothing over the differences between varying actor URI schemas. Different softwares may provide human-friendly URLs for an actor's profile, but these URLs may take several different forms:</p>
+      <ul>
+        <li><code>https://social.example/alyssa</code></li>
+        <li><code>https://social.example/@alyssa</code></li>
+        <li><code>https://social.example/~alyssa</code></li>
+        <li><code>https://social.example/u/alyssa</code></li>
+        <li>...and so on.</li>
+      </ul>
+      <p>Conventionally, people can be identified by their user@domain address, while documents can be identified by their HTTPS location.</p>
     </section>
     <section class="normative">
       <h2>Discovery</h2>
