@@ -42,7 +42,12 @@
     </section>
     <section class="normative">
       <h2>Discovery</h2>
-      <p>TBD</p>
+      <p>Given a username and hostname in the form <code>user@domain</code>:</p>
+      <ol>
+        <li>Construct an <code>acct:</code> URI of the form <code>acct:user@domain</code></li>
+        <li>Make an HTTP GET request to that hostname's WebFinger well-known endpoint, using the <code>acct:</code> URI as the value of the <code>resource</code> query parameter.</li>
+      </ol>
+      <p>For example, the WebFinger address <code>alyssa@social.example</code> can be resolved by making an HTTP GET request for <code>https://social.example/.well-known/webfinger?resource=acct:alyssa@social.example</code>.</p>
     </section>
     <section class="normative">
       <h2>Encoding</h2>
