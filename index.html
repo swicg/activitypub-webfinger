@@ -78,6 +78,7 @@ Content-Type: application/jrd+json
 }
 </pre>
       <p>At this point, you can parse for the <code>href</code> of the element of <code>links</code> that has a <code>rel</code> of <code>self</code> and a <code>type</code> of either <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code> or <code>application/activity+json</code> (depending on the implementation).</p>
+      <p>Due to the prevailing use of WebFinger addresses as canonical primary identifiers for users, implementations that require WebFinger for compatibility will often also deduplicate actors based on the WebFinger address. Therefore, it is generally expected that there is only one <code>self</code> link to an ActivityStreams document, in a unary relationship.</p>
     </section>
     <section>
       <h3 id="reverse-discovery">Reverse discovery of a WebFinger address given an actor document</h3>
