@@ -20,7 +20,7 @@
 
 <body>
   <section id="abstract">
-    <p>Identifiers in ActivityPub tend to be HTTPS URIs. The use of WebFinger (as defined in RFC 7033) allows for discovery of an actor's identifier given a username and a hostname, which may be more socially salient or otherwise easier to communicate across various contexts and media. The username and hostname are resolved at the WebFinger endpoint of the hostname in order to discover a link to an actor associated with the user's account, and that actor similarly can be back-linked to the username and hostname.</p>
+    <p>Identifiers in ActivityPub tend to be HTTPS URIs. The use of WebFinger (as defined in [[RFC7033]]) allows for discovery of an actor's identifier given a username and a hostname, which may be more socially salient or otherwise easier to communicate across various contexts and media. The username and hostname are resolved at the WebFinger endpoint of the hostname in order to discover a link to an actor associated with the user's account, and that actor similarly can be back-linked to the username and hostname.</p>
   </section>
   <section id="sotd">
     <p>This is required.</p>
@@ -39,14 +39,17 @@
     <p>Conventionally, people can be identified by their user@domain address, while documents can be identified by their HTTPS location.</p>
   </section>
   <section class="normative">
-    <h2>Discovery</h2>
-    <p>Given a username and hostname in the form <code>user@domain</code>:</p>
-    <ol>
-      <li>Construct an <code>acct:</code> URI of the form <code>acct:user@domain</code></li>
-      <li>Make an HTTP GET request to that hostname's WebFinger well-known endpoint, using the <code>acct:</code> URI as the value of the <code>resource</code> query parameter</li>
-    </ol>
-    <p>For example, the WebFinger address <code>alyssa@social.example</code> can be resolved as a resource by making an HTTP GET request for <code>https://social.example/.well-known/webfinger?resource=acct:alyssa@social.example</code> (or <code>https://social.example/.well-known/webfinger?resource=acct:alyssa%40social.example</code> if percent-encoded). This request MUST returns a JRD (JSON Resource Descriptor) with <code>application/jrd+json</code> as the content type (assuming no specified <code>Accept</code> header).</p>
-    <p>The WebFinger request and response may look like this:</p>
+    <h2 id="discovery">Discovery</h2>
+    <p></p>
+    <section>
+      <h3 id="forward-discovery">Discovery of an actor document given a WebFinger address</h3>
+      <p>Given a username and hostname in the form <code>user@domain</code>:</p>
+      <ol>
+        <li>Construct an <code>acct:</code> URI of the form <code>acct:user@domain</code> (as defined in [[RFC7565]])</li>
+        <li>Make an HTTP GET request to that hostname's WebFinger well-known endpoint, using the <code>acct:</code> URI as the value of the <code>resource</code> query parameter (as described in [[RFC7033]])</li>
+      </ol>
+      <p>For example, the WebFinger address <code>alyssa@social.example</code> can be resolved as a resource by making an HTTP GET request for <code>https://social.example/.well-known/webfinger?resource=acct:alyssa@social.example</code> (or <code>https://social.example/.well-known/webfinger?resource=acct:alyssa%40social.example</code> if percent-encoded). This request MUST returns a JRD (JSON Resource Descriptor) with <code>application/jrd+json</code> as the content type (assuming no specified <code>Accept</code> header).</p>
+      <p>The WebFinger request and response may look like this:</p>
 <pre class="http example" title="Sample JRD response">
 GET /.well-known/webfinger?resource=acct:alyssa@social.example HTTP/1.1
 Host: social.example
@@ -74,7 +77,17 @@ Content-Type: application/jrd+json
   ]
 }
 </pre>
-    <p></p>
+      <p>At this point, you can parse for the <code>href</code> of the element of <code>links</code> that has a <code>rel</code> of <code>self</code> and a <code>type</code> of either <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code> or <code>application/activity+json</code> (depending on the implementation).</p>
+    </section>
+    <section>
+      <h3 id="reverse-discovery">Reverse discovery of a WebFinger address given an actor document</h3>
+      <p>Given an actor with an <code>id</code> and a <code>preferredUsername</code>:</p>
+      <ol>
+        <li>Take the hostname of the <code>id</code> to discover the WebFinger domain</li>
+        <li>Combine the <code>preferredUsername</code> and the WebFinger domain in order to form a WebFinger address</li>
+        <li>Verify that this WebFinger address links back to the same actor when performing discovery as described in <a href="#forward-discovery"></a>. Optionally: If the <code>subject</code> contains an <code>acct:</code> URI different from the one you constructed, perform a verification discovery against that <code>acct:</code> URI instead. (In such cases, the <code>subject</code> of the JRD denotes the expected canonical identifier.)</li>
+      </ol>
+    </section>
   </section>
   <section class="normative">
     <h2>Encoding</h2>
