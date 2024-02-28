@@ -174,7 +174,7 @@ Content-Type: application/jrd+json
     <p>The current use of WebFinger with ActivityPub could be improved in several ways:</p>
     <ul>
       <li>Back-linking an actor to a WebFinger address could be more explicit. Current use of <code>preferredUsername</code> is not ideal for constructing WebFinger addresses, and it also does not allow for expressing actual "preferred usernames". An explicit property for denoting the user's "canonical" WebFinger address would ease reverse-discovery concerns.</li>
-      <li>Implementers could ease their de facto WebFinger requirements by treating WebFinger addresses purely as aliases for the actor's HTTPS identifier, rather than as the canonical identifier.</li>
+      <li>Implementers could ease their de facto WebFinger requirements by treating WebFinger addresses purely as aliases for the actor's HTTPS identifier, rather than as the canonical identifier. This would make WebFinger address mappings mutable and no longer unary.</li>
       <li>WebFinger could be used to expose certain properties or qualified links more directly, skipping the resolution of the actor resource.</li>
       <li>An ActivityStreams profile of WebFinger can be defined in order to redirect or directly resolve the actor document if the <code>Accept</code> header specifies the correct media type, skipping the resolution of the JRD.</li>
     </ul>
