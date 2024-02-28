@@ -1,75 +1,103 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>ActivityPub and WebFinger</title>
-    <script
-      src="https://www.w3.org/Tools/respec/respec-w3c"
-      class="remove"
-      defer
-    ></script>
-    <script class="remove">
-      // All config options at https://respec.org/docs/
-      var respecConfig = {
-        specStatus: "ED",
-        editors: [{ name: "Evan Prodromou", url: "https://evanp.me/" }, { name: "a", url: "https://trwnh.com"}],
-        github: "swicg/activitypub-webfinger",
-        shortName: "apwf",
-        xref: "web-platform",
-        group: "socialcg",
-      };
-    </script>
-  </head>
-  <body>
-    <section id="abstract">
-      <p>Identifiers in ActivityPub tend to be HTTPS URIs. The use of WebFinger (as defined in RFC 7033) allows for discovery of an actor's identifier given a username and a hostname, which may be more socially salient or otherwise easier to communicate across various contexts and media. The username and hostname are resolved at the WebFinger endpoint of the hostname in order to discover a link to an actor associated with the user's account, and that actor similarly can be back-linked to the username and hostname.</p>
-    </section>
-    <section id="sotd">
-      <p>This is required.</p>
-    </section>
-    <section class="informative">
-      <h2>Motivation</h2>
-      <p>Consider an HTTPS URI of the form <code>https://social.example/actors/9c5b94b1-35ad-49bb-b118-8e8fc24abf80</code> being used as an identifier for an actor associated with a user account. Communicating this digitally may be done by simply using the HTTPS URI as-is, as a hyperlink reference. However, communicating this verbally or in a space-constrained visual format can be difficult. WebFinger allows communicating aliases of the form <code>alyssa@social.example</code>, which are easier to work with in the previously-cited cases.</p>
-      <p>Additional benefits of using WebFinger include smoothing over the differences between varying actor URI schemas. Different softwares may provide human-friendly URLs for an actor's profile, but these URLs may take several different forms:</p>
-      <ul>
-        <li><code>https://social.example/alyssa</code></li>
-        <li><code>https://social.example/@alyssa</code></li>
-        <li><code>https://social.example/~alyssa</code></li>
-        <li><code>https://social.example/u/alyssa</code></li>
-        <li>...and so on.</li>
-      </ul>
-      <p>Conventionally, people can be identified by their user@domain address, while documents can be identified by their HTTPS location.</p>
-    </section>
-    <section class="normative">
-      <h2>Discovery</h2>
-      <p>Given a username and hostname in the form <code>user@domain</code>:</p>
-      <ol>
-        <li>Construct an <code>acct:</code> URI of the form <code>acct:user@domain</code></li>
-        <li>Make an HTTP GET request to that hostname's WebFinger well-known endpoint, using the <code>acct:</code> URI as the value of the <code>resource</code> query parameter.</li>
-      </ol>
-      <p>For example, the WebFinger address <code>alyssa@social.example</code> can be resolved by making an HTTP GET request for <code>https://social.example/.well-known/webfinger?resource=acct:alyssa@social.example</code>.</p>
-    </section>
-    <section class="normative">
-      <h2>Encoding</h2>
-      <p>TBD</p>
-    </section>
-    <section class="informative">
-      <h2>Security Considerations</h2>
-      <p>TBD</p>
-    </section>
-    <section class="informative">
-      <h2>Future Enhancements</h2>
-      <p>The current use of WebFinger with ActivityPub could be improved in several ways:</p>
-      <ul>
-        <li>Back-linking an actor to a WebFinger address could be more explicit. Current use of <code>preferredUsername</code> is not ideal for constructing WebFinger addresses, and it also does not allow for expressing actual "preferred usernames". An explicit property for denoting the user's "canonical" WebFinger address would ease reverse-discovery concerns.</li>
-        <li>Implementers could ease their de facto WebFinger requirements by treating WebFinger addresses purely as aliases for the actor's HTTPS identifier, rather than as the canonical identifier.</li>
-        <li>WebFinger could be used to expose certain properties or qualified links more directly, skipping the resolution of the actor resource.</li>
-      </ul>
-    </section>
-    <section id="conformance">
-      <p>
-        This is required for specifications that contain normative material.
-      </p>
-    </section>
-  </body>
+
+<head>
+  <meta charset="utf-8" />
+  <title>ActivityPub and WebFinger</title>
+  <script src="https://www.w3.org/Tools/respec/respec-w3c" class="remove" defer></script>
+  <script class="remove">
+    // All config options at https://respec.org/docs/
+    var respecConfig = {
+      specStatus: "ED",
+      editors: [{ name: "Evan Prodromou", url: "https://evanp.me/" }, { name: "a", url: "https://trwnh.com" }],
+      github: "swicg/activitypub-webfinger",
+      shortName: "apwf",
+      xref: "web-platform",
+      group: "socialcg",
+    };
+  </script>
+</head>
+
+<body>
+  <section id="abstract">
+    <p>Identifiers in ActivityPub tend to be HTTPS URIs. The use of WebFinger (as defined in RFC 7033) allows for discovery of an actor's identifier given a username and a hostname, which may be more socially salient or otherwise easier to communicate across various contexts and media. The username and hostname are resolved at the WebFinger endpoint of the hostname in order to discover a link to an actor associated with the user's account, and that actor similarly can be back-linked to the username and hostname.</p>
+  </section>
+  <section id="sotd">
+    <p>This is required.</p>
+  </section>
+  <section class="informative">
+    <h2>Motivation</h2>
+    <p>Consider an HTTPS URI of the form <code>https://social.example/actors/9c5b94b1-35ad-49bb-b118-8e8fc24abf80</code> being used as an identifier for an actor associated with a user account. Communicating this digitally may be done by simply using the HTTPS URI as-is, as a hyperlink reference. However, communicating this verbally or in a space-constrained visual format can be difficult. WebFinger allows communicating aliases of the form <code>alyssa@social.example</code>, which are easier to work with in the previously-cited cases.</p>
+    <p>Additional benefits of using WebFinger include smoothing over the differences between varying actor URI schemas. Different softwares may provide human-friendly URLs for an actor's profile, but these URLs may take several different forms:</p>
+    <ul>
+      <li><code>https://social.example/alyssa</code></li>
+      <li><code>https://social.example/@alyssa</code></li>
+      <li><code>https://social.example/~alyssa</code></li>
+      <li><code>https://social.example/u/alyssa</code></li>
+      <li>...and so on.</li>
+    </ul>
+    <p>Conventionally, people can be identified by their user@domain address, while documents can be identified by their HTTPS location.</p>
+  </section>
+  <section class="normative">
+    <h2>Discovery</h2>
+    <p>Given a username and hostname in the form <code>user@domain</code>:</p>
+    <ol>
+      <li>Construct an <code>acct:</code> URI of the form <code>acct:user@domain</code></li>
+      <li>Make an HTTP GET request to that hostname's WebFinger well-known endpoint, using the <code>acct:</code> URI as the value of the <code>resource</code> query parameter</li>
+    </ol>
+    <p>For example, the WebFinger address <code>alyssa@social.example</code> can be resolved as a resource by making an HTTP GET request for <code>https://social.example/.well-known/webfinger?resource=acct:alyssa@social.example</code> (or <code>https://social.example/.well-known/webfinger?resource=acct:alyssa%40social.example</code> if percent-encoded). This request MUST returns a JRD (JSON Resource Descriptor) with <code>application/jrd+json</code> as the content type (assuming no specified <code>Accept</code> header).</p>
+    <p>The WebFinger request and response may look like this:</p>
+<pre class="http example" title="Sample JRD response">
+GET /.well-known/webfinger?resource=acct:alyssa@social.example HTTP/1.1
+Host: social.example
+
+HTTP/1.1 200 OK
+Content-Type: application/jrd+json
+
+{
+  "subject": "acct:alyssa@social.example",
+  "aliases": [
+    "https://social.example/@alyssa",
+    "https://social.example/actors/9c5b94b1-35ad-49bb-b118-8e8fc24abf80"
+  ],
+  "links": [
+    {
+      "rel": "http://webfinger.net/rel/profile-page",
+      "type": "text/html",
+      "href": "https://social.example/@alyssa"
+    },
+    {
+      "rel": "self",
+      "type": "application/activity+json",
+      "href": "https://social.example/actors/9c5b94b1-35ad-49bb-b118-8e8fc24abf80"
+    }
+  ]
+}
+</pre>
+    <p></p>
+  </section>
+  <section class="normative">
+    <h2>Encoding</h2>
+    <p>TBD</p>
+  </section>
+  <section class="informative">
+    <h2>Security Considerations</h2>
+    <p>TBD</p>
+  </section>
+  <section class="informative">
+    <h2>Future Enhancements</h2>
+    <p>The current use of WebFinger with ActivityPub could be improved in several ways:</p>
+    <ul>
+      <li>Back-linking an actor to a WebFinger address could be more explicit. Current use of <code>preferredUsername</code> is not ideal for constructing WebFinger addresses, and it also does not allow for expressing actual "preferred usernames". An explicit property for denoting the user's "canonical" WebFinger address would ease reverse-discovery concerns.</li>
+      <li>Implementers could ease their de facto WebFinger requirements by treating WebFinger addresses purely as aliases for the actor's HTTPS identifier, rather than as the canonical identifier.</li>
+      <li>WebFinger could be used to expose certain properties or qualified links more directly, skipping the resolution of the actor resource.</li>
+    </ul>
+  </section>
+  <section id="conformance">
+    <p>
+      This is required for specifications that contain normative material.
+    </p>
+  </section>
+</body>
+
 </html>
