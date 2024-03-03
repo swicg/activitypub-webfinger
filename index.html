@@ -40,7 +40,12 @@
   </section>
   <section class="normative" id="discovery">
     <h2>Discovery</h2>
-    <p></p>
+    <p>Discovery can occur in one of two directions:</p>
+    <ul>
+      <li>Given a WebFinger address, one can resolve it to an actor document;</li>
+      <li>Given an actor document with a preferredUsername, one can reconstruct a WebFinger address that should link back to the same actor document.</li>
+    </ul>
+    <p>The former will be referred to as "forward discovery" and the latter will be referred to as "reverse discovery".</p>
     <section id="forward-discovery">
       <h3>Forward discovery of an actor document given a WebFinger address</h3>
       <p>Given a username and hostname in the form <code>user@domain</code>:</p>
@@ -78,7 +83,12 @@ Content-Type: application/jrd+json
 }
 </pre>
       <p>At this point, you can parse for the <code>href</code> of the element of <code>links</code> that has a <code>rel</code> of <code>self</code> and a <code>type</code> of either <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code> or <code>application/activity+json</code> (depending on the implementation).</p>
-      <p>Due to the prevailing use of WebFinger addresses as canonical primary identifiers for users, implementations that require WebFinger for compatibility will often also deduplicate actors based on the WebFinger address. Therefore, it is generally expected that there is only one <code>self</code> link to an ActivityStreams document, in a unary relationship. However, some implementations do not follow this expectation, and there might be multiple links to ActivityStreams documents for the same WebFinger <code>acct:</code> resource.</p>
+      <p>Due to the prevailing use of WebFinger addresses as canonical primary identifiers for users, implementations that require WebFinger for compatibility will often also deduplicate actors based on the WebFinger address. Therefore, it is generally expected that there is only one <code>self</code> link to an ActivityStreams document, in a unary relationship. However, some implementations do not follow this expectation, and there might be multiple links to ActivityStreams documents for the same WebFinger <code>acct:</code> resource. In such cases, one of the following strategies may be employed:</p>
+      <ul>
+        <li>Take the first matching entry in `links`</li>
+        <li>Deduplicate all matching entries in `links` by their `href`</li>
+        <li>Check for additional information, such as the presence of `properties` which may give further hints as to which entry of `links` is appropriate to follow</li>
+      </ul>
     </section>
     <section id="reverse-discovery">
       <h3>Reverse discovery of a WebFinger address given an actor document</h3>
@@ -163,7 +173,32 @@ Content-Type: application/jrd+json
   </section>
   <section class="normative">
     <h2>Encoding</h2>
-    <p>TBD</p>
+    <p>To ensure smooth operation of the WebFinger discovery flows, identifiers and responses should follow certain guidelines for encoding.</p>
+    <section class="normative" id="names">
+      <h3>Limitations on usernames and hostnames</h3>
+      <p>The <code>acct:</code> URI scheme is defined in [[RFC7565]], which contains ABNF for allowed characters (inheriting from [[RFC3986]] as well):</p>
+<pre class="abnf" title="acct: URI ABNF">
+acctURI      = "acct" ":" userpart "@" host
+userpart     = unreserved / sub-delims
+               0*( unreserved / pct-encoded / sub-delims )
+
+unreserved   = ALPHA / DIGIT / "-" / "." / "_" / "~"
+sub-delims   = "!" / "$" / "&" / "'" / "(" / ")" / "*" / "+" / "," / ";" / "="
+pct-encoded  = "%" HEXDIG HEXDIG
+
+host         = IP-literal / IPv4address / reg-name
+reg-name     = *( unreserved / pct-encoded / sub-delims )
+</pre>
+      <p>TBD</p>
+    </section>
+    <section class="normative">
+      <h3>Formatting the link between the WebFinger resource and the actor document</h3>
+      <p>TBD</p>
+    </section>
+    <section class="normative">
+      <h3>MIME types for requests and responses</h3>
+      <p>TBD</p>
+    </section>
   </section>
   <section class="informative">
     <h2>Security Considerations</h2>
