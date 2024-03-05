@@ -23,7 +23,6 @@
     <p>Identifiers in ActivityPub tend to be HTTPS URIs. The use of WebFinger (as defined in [[RFC7033]]) allows for discovery of an actor's identifier given a username and a hostname, which may be more socially salient or otherwise easier to communicate across various contexts and media. The username and hostname are resolved at the WebFinger endpoint of the hostname in order to discover a link to an actor associated with the user's account, and that actor similarly can be back-linked to the username and hostname.</p>
   </section>
   <section id="sotd">
-    <p>This is required.</p>
   </section>
   <section class="informative">
     <h2>Motivation</h2>
@@ -189,7 +188,43 @@ pct-encoded  = "%" HEXDIG HEXDIG
 host         = IP-literal / IPv4address / reg-name
 reg-name     = *( unreserved / pct-encoded / sub-delims )
 </pre>
-      <p>TBD</p>
+      <p>Further restrictions are specified in [[RFC7565]]:</p>
+      <ul>
+        <li>Per [[RFC3986]] Section 6.2.2.1 "Case Normalization", the scheme and host are case-insensitive and SHOULD therefore be normalized to lowercase.</li>
+        <li>Per [[RFC3986]] Section 6.2.2.2 "Percent-Encoding Normalization", any <code>unreserved</code> characters SHOULD be decoded if encountered as a percent-encoded octet.</li>
+        <li>Before percent-encoding anything, the userpart MUST consist only of Unicode code points that are part of the [[RFC7564]] PRECIS <code>IdentifierClass</code>
+        </li>
+        <li>Before percent-encoding anything, the hostname MUST conform to IDNA rules specified in [[RFC5982]] and [[RFC5980]] for A-label (ASCII-Compatible Encoding, or Punycode)</li>
+      </ul>
+      <section class="informative">
+        <h4>Current implementation rules</h4>
+        <p>Note that while there are several symbols allowed in the userpart, the de facto limits set by some current implementers are much more restrictive.</p>
+        <p>At the time of this writing, Mastodon enforces the following rules:</p>
+        <ul>
+          <li>The username must be at least one character</li>
+          <li>ASCII alphanumeric characters (<code>A</code> through <code>Z</code>, <code>a</code> through <code>z</code>, <code>0</code> through <code>9</code>) and underscores (<code>_</code>) are generally allowed anywhere in the username</li>
+          <li>Dots (<code>.</code>) and dashes (<code>-</code>) are allowed in the middle of a username, but not as the first character or the last character</li>
+          <li>All other symbols are disallowed</li>
+          <li>Usernames are case-insensitive</li>
+        </ul>
+        <p>In other words, Mastodon will accept the regular expression or the following ABNF:</p>
+<pre class="abnf" title="Mastodon username ABNF">
+; As a regular expression, this can be expressed as follows:
+; /[a-z0-9_]+([a-z0-9_.-]+[a-z0-9_]+)?/i
+
+username = word
+           *( rest )
+word     = ALPHA / DIGIT / "_"
+rest     = *( extended )
+           word
+extended = start / "." / "-"
+</pre>
+        <p>Similarly at the time of this writing, Misskey is subject to the following limitations:</p>
+        <ul>
+          <li>Usernames are limited to 128 characters</li>
+          <li>Hostnames are limited to 128 characters</li>
+        </ul>
+      </section>
     </section>
     <section class="normative">
       <h3>Formatting the link between the WebFinger resource and the actor document</h3>
@@ -202,6 +237,7 @@ reg-name     = *( unreserved / pct-encoded / sub-delims )
   </section>
   <section class="informative">
     <h2>Security Considerations</h2>
+    <p>Using WebFinger can provide proof of existence of an associated actor document, as well as make it easier to discover that associated actor document; following this, an actor's inbox can be likewise discovered, and spam or other unwanted messages can be delivered to that actor's inbox. It may be desirable for some systems to not publicly expose an actor's existence and instead rely on the user manually entering their actor's HTTPS URI, or maintaining a "contact list" of bookmarked actors or resources. For such systems, the use of WebFinger is not advisable.</p>
     <p>TBD</p>
   </section>
   <section class="informative">
