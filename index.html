@@ -24,7 +24,7 @@
   </section>
   <section id="sotd">
   </section>
-  <section class="informative">
+  <section class="informative" id="motivation">
     <h2>Motivation</h2>
     <p>Consider an HTTPS URI of the form <code>https://social.example/actors/9c5b94b1-35ad-49bb-b118-8e8fc24abf80</code> being used as an identifier for an actor associated with a user account. Communicating this digitally may be done by simply using the HTTPS URI as-is, as a hyperlink reference. However, communicating this verbally or in a space-constrained visual format can be difficult. WebFinger allows communicating aliases of the form <code>alyssa@social.example</code>, which are easier to work with in the previously-cited cases.</p>
     <p>Additional benefits of using WebFinger include smoothing over the differences between varying actor URI schemas. Different softwares may provide human-friendly URLs for an actor's profile, but these URLs may take several different forms:</p>
@@ -81,7 +81,7 @@ Content-Type: application/jrd+json
   ]
 }
 </pre>
-      <p>At this point, you can parse for the <code>href</code> of the element of <code>links</code> that has a <code>rel</code> of <code>self</code> and a <code>type</code> of either <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code> or <code>application/activity+json</code> (depending on the implementation).</p>
+      <p>At this point, you can parse for the <code>href</code> of the element of <code>links</code> that has a <code>rel</code> of <code>self</code> and a <code>type</code> of either <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code> or <code>application/activity+json</code> (depending on the implementation). See <a href="#link"></a> for more information about this.</p>
       <p>Due to the prevailing use of WebFinger addresses as canonical primary identifiers for users, implementations that require WebFinger for compatibility will often also deduplicate actors based on the WebFinger address. Therefore, it is generally expected that there is only one <code>self</code> link to an ActivityStreams document, in a unary relationship. However, some implementations do not follow this expectation, and there might be multiple links to ActivityStreams documents for the same WebFinger <code>acct:</code> resource. In such cases, one of the following strategies may be employed:</p>
       <ul>
         <li>Take the first matching entry in `links`</li>
@@ -170,7 +170,7 @@ Content-Type: application/jrd+json
 </pre>
     </section>
   </section>
-  <section class="normative">
+  <section class="normative" id="encoding">
     <h2>Encoding</h2>
     <p>To ensure smooth operation of the WebFinger discovery flows, identifiers and responses should follow certain guidelines for encoding.</p>
     <section class="normative" id="names">
@@ -196,7 +196,7 @@ reg-name     = *( unreserved / pct-encoded / sub-delims )
         </li>
         <li>Before percent-encoding anything, the hostname MUST conform to IDNA rules specified in [[RFC5982]] and [[RFC5980]] for A-label (ASCII-Compatible Encoding, or Punycode)</li>
       </ul>
-      <section class="informative">
+      <section class="informative" id="rules">
         <h4>Current implementation rules</h4>
         <p>Note that while there are several symbols allowed in the userpart, the de facto limits set by some current implementers are much more restrictive.</p>
         <p>At the time of this writing, Mastodon enforces the following rules:</p>
@@ -226,21 +226,26 @@ extended = start / "." / "-"
         </ul>
       </section>
     </section>
-    <section class="normative">
+    <section class="normative" id="link">
       <h3>Formatting the link between the WebFinger resource and the actor document</h3>
-      <p>TBD</p>
+      <p>As discussed in <a href="#forward-discovery"></a>, the link to the actor associated with a given WebFinger address will have the following qualifiers:</p>
+      <ul>
+        <li><code>rel</code> MUST be <code>self</code></li>
+        <li><code>type</code> MUST be either <code>application/activity+json</code> or <code>application/ld+json; profile="https://www.w3.org/ns/activitystreams"</code></li>
+      </ul>
+      <p>Publishers SHOULD only include one such link.</p>
     </section>
-    <section class="normative">
+    <section class="normative" id="mimetype">
       <h3>MIME types for requests and responses</h3>
       <p>TBD</p>
     </section>
   </section>
-  <section class="informative">
+  <section class="informative" id="security">
     <h2>Security Considerations</h2>
     <p>Using WebFinger can provide proof of existence of an associated actor document, as well as make it easier to discover that associated actor document; following this, an actor's inbox can be likewise discovered, and spam or other unwanted messages can be delivered to that actor's inbox. It may be desirable for some systems to not publicly expose an actor's existence and instead rely on the user manually entering their actor's HTTPS URI, or maintaining a "contact list" of bookmarked actors or resources. For such systems, the use of WebFinger is not advisable.</p>
     <p>TBD</p>
   </section>
-  <section class="informative">
+  <section class="informative" id="future">
     <h2>Future Enhancements</h2>
     <p>The current use of WebFinger with ActivityPub could be improved in several ways:</p>
     <ul>
