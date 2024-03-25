@@ -225,6 +225,8 @@ extended = start / "." / "-"
           <li>Implementers SHOULD treat local usernames as case-insensitive.</li>
           <li>Implementers SHOULD NOT assume case insensitivity for external usernames.</li>
           <li>Implementers SHOULD NOT treat usernames as stable identifiers that will always map to the same actor, and SHOULD use the actor <code>id</code> in any references to an actor.(Implementers that currently treat usernames as canonical identifiers SHOULD take steps to avoid doing so in the future.)</li>
+          <li>Implementers SHOULD limit the length of local usernames. The exact limit is not specified, but it is noteworthy that similar systems such as email often limit the localpart to 64 characters (per [[RFC2821]]).</li>
+          <li>Implementers SHOULD support remote usernames containing valid characters per [[RFC7565]]. For short-term compatibility, implementers SHOULD NOT use characters other than alphanumeric (<code>A-Z, a-z, 0-9</code>) and underscores (<code>_</code>).</li>
         </ul>
       </section>
     </section>
