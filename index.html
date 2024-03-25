@@ -246,6 +246,30 @@ extended = start / "." / "-"
       </ul>
     </section>
   </section>
+  <section class="informative" id="other">
+    <h3>Other uses of WebFinger</h3>
+    <p>Aside from the self-link to the associated actor, resolving a WebFinger query may expose some other links of potential interest. The following link relations are currently common among WebFinger implementers:</p>
+    <ul>
+      <li><code>http://webfinger.net/rel/profile-page</code> (for quickly getting the HTML profile page of a user without resolving their actor document and checking for the <code>url</code>)</li>
+      <li><code>http://webfinger.net/rel/avatar</code> (for quickly getting the avatar of a user without resolving their actor document and checking for the <code>icon</code>)</li>
+    </ul>
+    <p>The following link relations are less common, but offer useful information to ActivityPub implementers:</p>
+    <ul>
+      <li><code>http://ostatus.org/schema/1.0/subscribe</code> (used to power features like Mastodon's remote follow buttons)</li>
+      <li><code>http://schemas.google.com/g/2010#updates-from</code> (used by some implementations to link to an Atom feed)</li>
+      <li><code>feed</code> (used by some implementations to link to one or more feeds; feeds can be disambiguated by checking <code>type</code> and/or <code>title</code> properties of the link)</li>
+      <li><code>http://a9.com/-/spec/opensearch/1.1/</code> (for custom search bars)</li>
+    </ul>
+    <p>Also uncommon but supported by at least one implementation (Wordpress) is the ability to query non-actor, non-user resources via WebFinger. The following link relations are exposed:</p>
+    <ul>
+      <li><code>shortlink</code></li>
+      <li><code>author</code></li>
+      <li><code>alternate</code></li>
+      <li><code>license</code></li>
+      <li><code>canonical</code></li>
+      <li><code>webmention</code></li>
+    </ul>
+  </section>
   <section class="informative" id="security">
     <h2>Security Considerations</h2>
     <p>Using WebFinger can provide proof of existence of an associated actor document, as well as make it easier to discover that associated actor document; following this, an actor's inbox can be likewise discovered, and spam or other unwanted messages can be delivered to that actor's inbox. It may be desirable for some systems to not publicly expose an actor's existence and instead rely on the user manually entering their actor's HTTPS URI, or maintaining a "contact list" of bookmarked actors or resources. For such systems, the use of WebFinger is not advisable.</p>
