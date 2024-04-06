@@ -211,7 +211,7 @@ username = word
 word     = ALPHA / DIGIT / "_"
 rest     = *( extended )
            word
-extended = start / "." / "-"
+extended = word / "." / "-"
 </pre>
         <p>Similarly at the time of this writing, Misskey is subject to the following limitations:</p>
         <ul>
