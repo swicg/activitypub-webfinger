@@ -169,18 +169,19 @@ Content-Type: application/jrd+json
     <p>To ensure smooth operation of the WebFinger discovery flows, identifiers and responses should follow certain guidelines for encoding.</p>
     <section class="normative" id="names">
       <h3>Limitations on usernames and hostnames</h3>
-      <p>The <code>acct:</code> URI scheme is defined in [[RFC7565]], which contains ABNF for allowed characters (inheriting from [[RFC3986]] as well):</p>
+      <p>The <code>acct:</code> URI scheme is defined in [[RFC7565]], which contains ABNF ([[RFC5234]]) for allowed characters (inheriting from [[RFC3986]] as well):</p>
 <pre class="abnf" title="acct: URI ABNF">
 acctURI      = "acct" ":" userpart "@" host
 userpart     = unreserved / sub-delims
                0*( unreserved / pct-encoded / sub-delims )
-
+; userpart regex: [A-Za-z0-9\-\.\_\~\!\$\&\'\(\)\*\+\,\;\=](?:[A-Za-z0-9\-\.\_\~\!\$\&\'\(\)\*\+\,\;\=]|(?:%[0-9A-Fa-f]{2}))*
 unreserved   = ALPHA / DIGIT / "-" / "." / "_" / "~"
 sub-delims   = "!" / "$" / "&" / "'" / "(" / ")" / "*" / "+" / "," / ";" / "="
 pct-encoded  = "%" HEXDIG HEXDIG
 
 host         = IP-literal / IPv4address / reg-name
 reg-name     = *( unreserved / pct-encoded / sub-delims )
+; reg-name regex: (?:[A-Za-z0-9\-\.\_\~\!\$\&\'\(\)\*\+\,\;\=]|(?:%[0-9A-Fa-f]{2}))*
 </pre>
       <p>Further restrictions are specified in [[RFC7565]]:</p>
       <ul>
