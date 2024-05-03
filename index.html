@@ -97,7 +97,8 @@ Content-Type: application/jrd+json
 {
   "@context": "https://www.w3.org/ns/activitystreams",
   "id": "https://activitypub.example.com/actor/1",
-  "preferredUsername": "alice"
+  "preferredUsername": "alice",
+  "name": "Alice P. Hacker"
 }
 </pre>
       <p>The reverse discovery process would extract <code>alice</code> and <code>activitypub.example.com</code>, construct the <code>acct:</code> URI <code>acct:alice@activitypub.example.com</code>, then request <code>https://activitypub.example.com/.well-known/webfinger?resource=acct:alice@activitypub.example.com</code> like so:</p>
