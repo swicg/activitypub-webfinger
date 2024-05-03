@@ -90,7 +90,7 @@ Content-Type: application/jrd+json
         <li>Take the hostname of the <code>id</code> to discover the WebFinger domain</li>
         <li>Combine the <code>preferredUsername</code> and the WebFinger domain in order to form a WebFinger address</li>
         <li>Verify that this WebFinger address links back to the same actor when performing discovery as described in <a href="#forward-discovery"></a></li>
-        <li>Optionally: If the <code>subject</code> from the previous step contains an <code>acct:</code> URI different from the one you constructed, perform a verification discovery against that <code>acct:</code> URI afterward. (In such cases, the <code>subject</code> of the JRD denotes the expected canonical identifier.)</li>
+        <li>Optionally: If the JRD from the previous step has a <code>subject</code> and it contains an <code>acct:</code> URI different from the one you constructed, perform a verification discovery against that <code>acct:</code> URI afterward. (In such cases, the <code>subject</code> of the JRD denotes the expected canonical identifier.)</li>
       </ol>
       <p>For example, given an actor document at <code>https://activitypub.example.com/actor/1</code> like so:</p>
 <pre class="json example" title="Sample actor document">
