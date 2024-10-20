@@ -10,7 +10,6 @@
     var respecConfig = {
       editors: [{ name: "a", url: "https://trwnh.com" }, { name: "Evan Prodromou", url: "https://evanp.me/" }],
       specStatus: "CG-FINAL",
-      publishDate: "2024-06-08",
       latestVersion: "https://www.w3.org/community/reports/socialcg/apwf/",
       xref: "web-platform",
       group: "socialcg",
@@ -54,10 +53,16 @@
         <li>Construct an <code>acct:</code> URI of the form <code>acct:user@domain</code> (as defined in [[RFC7565]])</li>
         <li>Make an HTTP GET request to that hostname's WebFinger well-known endpoint, using the <code>acct:</code> URI as the value of the <code>resource</code> query parameter (as described in [[RFC7033]])</li>
       </ol>
-      <p>For example, the WebFinger address <code>alyssa@social.example</code> can be resolved as a resource by making an HTTP GET request for <code>https://social.example/.well-known/webfinger?resource=acct:alyssa@social.example</code> (which is <code>https://social.example/.well-known/webfinger?resource=acct:alyssa%40social.example</code> when percent-encoded). This request MUST returns a JRD (JSON Resource Descriptor, as defined in [[RFC6415]]) with <code>application/jrd+json</code> as the content type (assuming no specified <code>Accept</code> header).</p>
+      <p>For example, the WebFinger address <code>alyssa@social.example</code> can be resolved as a resource by making an HTTP GET request for <code>https://social.example/.well-known/webfinger?resource=acct:alyssa@social.example</code> (which is <code>https://social.example/.well-known/webfinger?resource=acct:alyssa%40social.example</code> when percent-encoded). This request MAY result in an HTTP 3xx redirect, in which case the redirect MUST be followed to the <code>Location</code> header's value, which MUST be an <code>https:</code> URI per [[RFC7033]]. The final request MUST return a JRD (JSON Resource Descriptor, as defined in [[RFC6415]]) with <code>application/jrd+json</code> as the content type (assuming no specified <code>Accept</code> header).</p>
       <p>The WebFinger request and response may look like this:</p>
-<pre class="http example" title="Sample JRD response">
-GET /.well-known/webfinger?resource=acct:alyssa@social.example HTTP/1.1
+<pre class="http example" title="Sample WebFinger request and JRD response">
+GET /.well-known/webfinger?resource=acct:alyssa%40social.example HTTP/1.1
+Host: social.example
+
+HTTP/1.1 307 Temporary Redirect
+Location: https://social.example/jrd/alyssa
+
+GET /jrd/alyssa HTTP/1.1
 Host: social.example
 
 HTTP/1.1 200 OK
