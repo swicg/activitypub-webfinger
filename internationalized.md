@@ -70,7 +70,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 | [Loops](https://joinloops.org/) | ? | ? | ? | ? | ? | ? | ? |
 | [Lotide](https://git.sr.ht/~vpzom/lotide) | ? | ? | ? | ? | ? | ? | ? |
 | [Manyfold](https://manyfold.app/) | ? | ? | ? | ? | ? | ? | ? |
-| [Mastodon](https://joinmastodon.org/) | ? | ? | ? | ? | ? | ? | ? |
+| [Mastodon](https://joinmastodon.org/) | ? | ? | ? | ? | ? | ? | [#8417](https://github.com/mastodon/mastodon/issues/8417) |
 | [Mbin](https://joinmbin.org/) | ? | ? | ? | ? | ? | ? | ? |
 | [Meisskey](https://github.com/mei23/misskey) | ? | ? | ? | ? | ? | ? | ? |
 | [Microblogpub](https://microblog.pub/) | ? | ? | ? | ? | ? | ? | ? |
