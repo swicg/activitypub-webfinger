@@ -120,6 +120,7 @@ The table has the following columns:
 | Software | Forward | Reverse | Issue(s) |
 | -------- | ------- | ------- | -------- |
 | [activitypub-webfinger](https://github.com/social-web-foundation/activitypub-webfinger) | ? | ? | [#1](https://github.com/social-web-foundation/activitypub-webfinger/issues/1) |
+| [webfinger.js](https://github.com/silverbucket/webfinger.js) | ✅ Y (v3.1.0+) | N/A | [#179](https://github.com/silverbucket/webfinger.js/issues/179) |
 
 ## Submitting data
 
