@@ -48,7 +48,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 | [Fedibird](https://github.com/fedibird/mastodon) | ? | ? | ? | ? | ? | ? | ? |
 | [Firefish](https://fedidb.com/software/firefish) | ? | ? | ? | ? | ? | ? | ? |
 | [Forgejo](https://fedidb.com/software/forgejo) | ? | ? | ? | ? | ? | ? | ? |
-| [Forte](https://codeberg.org/fortified/forte) | ? | ? | ? | ? | ? | ? | ? |
+| [Forte](https://codeberg.org/fortified/forte) | Y | Y | Y | Y | Y | Y | [^2] |
 | [Foundkey](https://akkoma.dev/FoundKeyGang/FoundKey) | ? | ? | ? | ? | ? | ? | ? |
 | [frequency](https://frequency.app/) | ? | ? | ? | ? | ? | ? | ? |
 | [Friendica](https://friendi.ca/) | ? | ? | ? | ? | ? | ? | ? |
@@ -93,7 +93,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 | [Smithereen](https://smithereen.software/) | ? | ? | ? | ? | ? | ? | ? |
 | [Snac](https://codeberg.org/grunfink/snac2) | ? | ? | ? | ? | ? | ? | ? |
 | [stegodon](https://stegodon.social/) | ? | ? | ? | ? | ? | ? | ? |
-| [streams repository](https://codeberg.org/streams/streams) | ? | ? | ? | ? | ? | ? | ? |
+| [streams repository](https://codeberg.org/streams/streams) | Y | Y | Y | Y | Y | Y | [^2] |
 | [Takahe](https://jointakahe.org/) | ? | ? | ? | ? | ? | ? | ? |
 | [Threads](https://threads.net/) | ? | ? | ? | ? | ? | ? | ? |
 | [tootik](https://github.com/dimkr/tootik) | ? | ? | ? | ? | ? | ? | ? |
@@ -105,6 +105,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 | [WriteFreely](https://writefreely.org/) | ? | ? | ? | ? | ? | ? | ? |
 
 [^1]: [tags.pub](https://tags.pub/), [groups.pub](https://groups.pub/), [activitypub.bot](https://activitypub.bot/)
+[^2]: IDN (punycode) encoded for federation and translated internally for display. Uses 'petnames' for easier mentioning and searching.
 
 ## Library matrix
 
@@ -121,6 +122,7 @@ The table has the following columns:
 | -------- | ------- | ------- | -------- |
 | [activitypub-webfinger](https://github.com/social-web-foundation/activitypub-webfinger) | ? | ? | [#1](https://github.com/social-web-foundation/activitypub-webfinger/issues/1) |
 | [Fedipub](https://fedipub.dev) | ? | ? | [#62](https://gitlab.com/fedipub/fedipub/-/work_items/62)
+| [webfinger.js](https://github.com/silverbucket/webfinger.js) | ✅ Y (v3.1.0+) | N/A | [#179](https://github.com/silverbucket/webfinger.js/issues/179) |
 
 ## Submitting data
 
