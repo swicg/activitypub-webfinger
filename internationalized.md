@@ -105,7 +105,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 | [WriteFreely](https://writefreely.org/) | ? | ? | ? | ? | ? | ? | ? |
 
 [^1]: [tags.pub](https://tags.pub/), [groups.pub](https://groups.pub/), [activitypub.bot](https://activitypub.bot/)
-[^2]: IDN (punycode) encoded for federation and translated internally for display. Uses 'petnames' for easier mentioning and searching.
+[^2]: IDN (punycode) encoded for federation and translated internally for display. Remote usernames which use either form (UTF-8 or IDN) are handled correctly. Uses 'petnames' for easier mentioning and searching.
 
 ## Library matrix
 
