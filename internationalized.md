@@ -76,7 +76,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 | [Microblogpub](https://microblog.pub/) | ? | ? | ? | ? | ? | ? | ? |
 | [Microdotblog](https://micro.blog/) | ? | ? | ? | ? | ? | ? | ? |
 | [Misskey](https://misskey-hub.net/) | ? | ? | ? | ? | ? | ? | ? |
-| [Mitra](https://codeberg.org/silverpill/mitra) | ? |? | ? | ? | ? | ? | ? |
+| [Mitra](https://codeberg.org/silverpill/mitra) | ? | ? | ? | ? | ? | ? | ? |
 | [Mobilizon](https://joinmobilizon.org/) | ? | ? | ? | ? | ? | ? | ? |
 | [murlog](https://murlog.org/) | ? | ? | ? | ? | ? | ? | ? |
 | [NeoDB](https://neodb.net/) | ? | ? | ? | ? | ? | ? | ? |
@@ -121,7 +121,7 @@ The table has the following columns:
 | Software | Forward | Reverse | Issue(s) |
 | -------- | ------- | ------- | -------- |
 | [activitypub-webfinger](https://github.com/social-web-foundation/activitypub-webfinger) | ? | ? | [#1](https://github.com/social-web-foundation/activitypub-webfinger/issues/1) |
-| [Fedipub](https://fedipub.dev) | ? | ? | [#62](https://gitlab.com/fedipub/fedipub/-/work_items/62)
+| [Fedipub](https://fedipub.dev) | ? | ? | [#62](https://gitlab.com/fedipub/fedipub/-/work_items/62) |
 | [webfinger.js](https://github.com/silverbucket/webfinger.js) | ✅ Y (v3.1.0+) | N/A | [#179](https://github.com/silverbucket/webfinger.js/issues/179) |
 
 ## Submitting data
