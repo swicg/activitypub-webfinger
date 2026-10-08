@@ -69,7 +69,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 | [Lemmy](https://join-lemmy.org/) | ? | ? | ? | ? | ? | ? | ? |
 | [Loops](https://joinloops.org/) | ? | ? | ? | ? | ? | ? | ? |
 | [Lotide](https://git.sr.ht/~vpzom/lotide) | ? | ? | ? | ? | ? | ? | ? |
-| [Manyfold](https://manyfold.app/) | ? | ? | ? | ? | ? | ? | ? |
+| [Manyfold](https://manyfold.app/) | ? | ? | ? | ? | ? | ? | [#7310](https://github.com/manyfold3d/manyfold/issues/7310) + Fedipub support |
 | [Mastodon](https://joinmastodon.org/) | ? | ? | ? | ? | ? | ? | [#8417](https://github.com/mastodon/mastodon/issues/8417) |
 | [Mbin](https://joinmbin.org/) | ? | ? | ? | ? | ? | ? | ? |
 | [Meisskey](https://github.com/mei23/misskey) | ? | ? | ? | ? | ? | ? | ? |
@@ -121,6 +121,7 @@ The table has the following columns:
 | Software | Forward | Reverse | Issue(s) |
 | -------- | ------- | ------- | -------- |
 | [activitypub-webfinger](https://github.com/social-web-foundation/activitypub-webfinger) | ? | ? | [#1](https://github.com/social-web-foundation/activitypub-webfinger/issues/1) |
+| [Fedipub](https://fedipub.dev) | ? | ? | [#62](https://gitlab.com/fedipub/fedipub/-/work_items/62)
 | [webfinger.js](https://github.com/silverbucket/webfinger.js) | ✅ Y (v3.1.0+) | N/A | [#179](https://github.com/silverbucket/webfinger.js/issues/179) |
 
 ## Submitting data
