@@ -115,7 +115,7 @@ The table has the following columns:
 
 * Library: name and link to the library.
 * Forward: Can the library discover an ActivityPub actor from a non-ASCII handle?
-* Reverse: Can the library construct an ActivityPub actor from a non-ASCII handle?
+* Reverse: Can the library construct a non-ASCII handle from an ActivityPub actor?
 * Issue(s): Task tracking for these or related features
 
 | Software | Forward | Reverse | Issue(s) |
