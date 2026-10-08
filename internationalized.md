@@ -120,9 +120,12 @@ The table has the following columns:
 
 | Software | Forward | Reverse | Issue(s) |
 | -------- | ------- | ------- | -------- |
-| [activitypub-webfinger](https://github.com/social-web-foundation/activitypub-webfinger) | ? | ? | [#1](https://github.com/social-web-foundation/activitypub-webfinger/issues/1) |
+| [activitypub-webfinger](https://github.com/social-web-foundation/activitypub-webfinger) | ✅ Y [^3] | ✅ Y [^3] | [#1](https://github.com/social-web-foundation/activitypub-webfinger/issues/1) |
 | [Fedipub](https://fedipub.dev) | ? | ? | [#62](https://gitlab.com/fedipub/fedipub/-/work_items/62) |
-| [webfinger.js](https://github.com/silverbucket/webfinger.js) | ✅ Y (v3.1.0+) | N/A | [#179](https://github.com/silverbucket/webfinger.js/issues/179) |
+| [webfinger.js](https://github.com/silverbucket/webfinger.js) | ✅ Y [^4] | N/A | [#179](https://github.com/silverbucket/webfinger.js/issues/179) |
+
+[^3]: From version 0.3.0
+[^4]: v3.1.0+
 
 ## Submitting data
 
