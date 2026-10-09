@@ -221,7 +221,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 | [Mobilizon](https://joinmobilizon.org/) | ? | ? | ? | ? | ? | ? | ? |
 | [murlog](https://murlog.org/) | ? | ? | ? | ? | ? | ? | ? |
 | [NeoDB](https://neodb.net/) | ? | ? | ? | ? | ? | ? | ? |
-| [NodeBB](https://nodebb.org/) | ? | ? | ? | ? | ? | ? | ? |
+| [NodeBB](https://nodebb.org/) | ✅ Y | ✅ Y | ✅ Y | ✅ Y | ✅ Y | ✅ Y |  |
 | [onepage.pub](https://github.com/evanp/onepage.pub/) | ? | ? | ? | ? | ? | ? | [#287](https://github.com/evanp/onepage.pub/issues/287) |
 | [Owncast](https://owncast.online/) | ? | ? | ? | ? | ? | ? | ? |
 | [PeerTube](https://joinpeertube.org/) | ? | ? | ? | ? | ? | ? | ? |
