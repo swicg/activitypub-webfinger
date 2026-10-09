@@ -147,7 +147,7 @@ If the publisher uses the (less preferred) `acct:` URI format, it should be enco
   "@context": "https://www.w3.org/ns/activitystreams",
   "id": "https://xn--mxd7a1d.example/user/D9%8A%D9%84%D9%89",
   "type": "Person",
-  "webfinger": "ليلى@ምሳሌ.example"
+  "webfinger": "acct:%D9%84%D9%8A%D9%84%D9%89@xn--mxd7a1d.example"
 }
 ```
 
