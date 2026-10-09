@@ -10,6 +10,147 @@ For the top human languages, only 3 primarily use only ASCII characters (English
 
 Webfinger supports non-ASCII characters in both the local part (user name) and domain. In this document, we call Webfinger handles with non-ASCII characters **internationalized Webfinger handles**, **inclusive handles**, or **non-ASCII handles**. This document tracks adoption of non-ASCII characters in Webfinger handles in ActivityPub.
 
+## Implementation notes
+
+Webfinger is defined in [RFC 7033](https://www.rfc-editor.org/rfc/rfc7033.html). It uses the `acct:` URI format, among others, defined in [RFC 7565](https://www.rfc-editor.org/rfc/rfc7033.html).
+
+An `acct:` URI has the form `userpart@host`. Per the [internationalization considerations](https://www.rfc-editor.org/info/rfc7565/#section-6), these parts have the following restrictions.
+
+### userpart
+
+`userpart` must match the [PRECIS IdentifierClass](https://www.rfc-editor.org/info/rfc8264/#section-4.2). This includes "letters", "numbers", and a few ASCII punctuation marks.
+
+Some example userpart values:
+
+- `user1`
+- `renée`
+- `иван`
+- `ελπίδα`
+- `小明`
+- `किरण`
+- `ليلى`
+- `שרה`
+- `anne.o'neill+notes`
+- `민수`
+- `さくら`
+
+Not every implementation will support every form of userpart described here.
+
+### host
+
+`host` must match the Internationalized Domain Names for Applications (IDNA) requirements for the Unicode form of a hostname in [RFC 5892](https://www.rfc-editor.org/info/rfc5892/).
+
+Some example host values:
+
+- `ตัวอย่าง.example`
+- `উদাহরণ.example`
+- `எடுத்துக்காட்டு.example`
+- `ఉదాహరణ.example`
+- `მაგალითი.example`
+- `example.հայ`
+- `ምሳሌ.example`
+- `example.net`
+- `example.مصر`
+- `example.中国`
+- `café.example`
+
+### acct: URI
+
+In `acct:` URIs, the `userpart` is percent-encoded, and the `host` is encoded per IDNA.
+
+Some examples:
+
+- `acct:user1@xn--72c1a1bt4awk9o.example`
+- `acct:ren%C3%A9e@xn--d5b6ci4b4b3a.example`
+- `acct:%D0%B8%D0%B2%D0%B0%D0%BD@xn--4kcoa2bca5aa0vzacf2mdd.example`
+- `acct:%CE%B5%CE%BB%CF%80%CE%AF%CE%B4%CE%B1@xn--noc6ci4b4b3a.example`
+- `acct:%E5%B0%8F%E6%98%8E@xn--lodafveble.example`
+- `acct:%E0%A4%95%E0%A4%BF%E0%A4%B0%E0%A4%A3@example.xn--y9a3aq`
+- `acct:%D9%84%D9%8A%D9%84%D9%89@xn--mxd7a1d.example`
+- `acct:%D7%A9%D7%A8%D7%94@example.net`
+- `acct:anne.o'neill+notes@example.xn--wgbh1c`
+- `acct:%EB%AF%BC%EC%88%98@example.xn--fiqs8s`
+- `acct:%E3%81%95%E3%81%8F%E3%82%89@xn--caf-dma.example`
+
+### Webfinger handle lookup
+
+Looking up a handle requires converting it to an `acct:` URI and passing it as the `resource` parameter to the well-known URL for Webfinger for the host domain.
+
+As an example, start with the handle `ελπίδα@ఉదాహరణ.example`. Its hostname in IDNA A-label form is `xn--noc6ci4b4b3a.example`. The `acct:` URI is:
+
+```uri
+acct:%CE%B5%CE%BB%CF%80%CE%AF%CE%B4%CE%B1@xn--noc6ci4b4b3a.example
+```
+
+The resulting URI for WebFinger lookup is:
+
+```url
+https://xn--noc6ci4b4b3a.example/.well-known/webfinger?resource=acct%3A%25CE%25B5%25CE%25BB%25CF%2580%25CE%25AF%25CE%25B4%25CE%25B1%40xn--noc6ci4b4b3a.example
+```
+
+Note that the `%` characters in the `acct:` URI are themselves percent-encoded in the HTTPS URL, as parameter values.
+
+### ActivityPub object IDs
+
+ActivityPub objects, including actors, activities, and collections, use HTTPS URIs as identifiers. These should use the IDNA A-label for the host. For example:
+
+```json
+{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "id": "https://xn--d5b6ci4b4b3a.example/note/35",
+  "type": "Note",
+  "content": "Hello, World!"
+}
+```
+
+Some ActivityPub implementations include the username in URLs. These should be percent-encoded in object IDs.
+
+```json
+{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "id": "https://xn--4kcoa2bca5aa0vzacf2mdd.example/user/%D0%B8%D0%B2%D0%B0%D0%BD/followers",
+  "type": "OrderedCollection",
+  "summary": "Followers of иван@எடுத்துக்காட்டு.example"
+}
+```
+
+### preferredUsername
+
+The `preferredUsername` of an actor should match the unencoded version of the `userpart`.
+
+```json
+{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "id": "https://xn--caf-dma.example/user/%E3%81%95%E3%81%8F%E3%82%89",
+  "type": "Person",
+  "preferredUsername": "さくら"
+}
+```
+
+### webfinger property
+
+[FEP 2c59](https://fediverse.codeberg.page/fep/fep/2c59/) defines a `webfinger` property for an actor. This should be in the unencoded format of both the userpart and the host:
+
+```json
+{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "id": "https://xn--mxd7a1d.example/user/D9%8A%D9%84%D9%89",
+  "type": "Person",
+  "webfinger": "ليلى@ምሳሌ.example"
+}
+```
+
+If the publisher uses the (less preferred) `acct:` URI format, it should be encoded:
+
+```json
+{
+  "@context": "https://www.w3.org/ns/activitystreams",
+  "id": "https://xn--mxd7a1d.example/user/D9%8A%D9%84%D9%89",
+  "type": "Person",
+  "webfinger": "ليلى@ምሳሌ.example"
+}
+```
+
 ## Server and client matrix
 
 This matrix is for tracking ActivityPub software implementation status of non-ASCII Webfinger handles.
@@ -18,14 +159,14 @@ It includes ActivityPub servers, ActivityPub server frameworks, Mastodon API cli
 
 The table has the following columns:
 
-* Software: name and link to the software.
-* Receive: Can local users receive activities from a remote account with a non-ASCII handle?
-* Send: Can local users send activities to a remote account with a non-ASCII handle?
-* Link: Are non-ASCII handles linkified in in-band mentions?
-* Search: Can the server's search interface discover an actor with a non-ASCII handle?
-* Domain: Can a server be hosted on a domain with non-ASCII characters?
-* Username: Can users on the server have a non-ASCII localpart (username) in their handle?
-* Issue(s): Task tracking for these or related features
+- Software: name and link to the software.
+- Receive: Can local users receive activities from a remote account with a non-ASCII handle?
+- Send: Can local users send activities to a remote account with a non-ASCII handle?
+- Link: Are non-ASCII handles linkified in in-band mentions?
+- Search: Can the server's search interface discover an actor with a non-ASCII handle?
+- Domain: Can a server be hosted on a domain with non-ASCII characters?
+- Username: Can users on the server have a non-ASCII localpart (username) in their handle?
+- Issue(s): Task tracking for these or related features
 
 Thanks to [FediDB](https://fedidb.com/software) for the seed version of the software list.
 
@@ -113,10 +254,10 @@ This matrix is for tracking ActivityPub software library support for non-ASCII W
 
 The table has the following columns:
 
-* Library: name and link to the library.
-* Forward: Can the library discover an ActivityPub actor from a non-ASCII handle?
-* Reverse: Can the library construct a non-ASCII handle from an ActivityPub actor?
-* Issue(s): Task tracking for these or related features
+- Library: name and link to the library.
+- Forward: Can the library discover an ActivityPub actor from a non-ASCII handle?
+- Reverse: Can the library construct a non-ASCII handle from an ActivityPub actor?
+- Issue(s): Task tracking for these or related features
 
 | Software | Forward | Reverse | Issue(s) |
 | -------- | ------- | ------- | -------- |
