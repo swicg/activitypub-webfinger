@@ -32,7 +32,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 | Software | Receive | Send | Link | Search | Domain | Username | Issue(s) |
 | -------- | ------- | ---- | ---- | ------ | ------ | -------- | -------- |
 | [Activity-Relay](https://relay.toot.yukimochi.jp/) | ? | ? | ? | ? | ? | ? | ? |
-| [activitypub.bot](https://github.com/evanp/activitypub-bot)[^1] | ? | ? | ? | ? | ? | ? | [#282](https://github.com/evanp/activitypub-bot/issues/282) |
+| [activitypub.bot](https://github.com/evanp/activitypub-bot)[^1] | ✅ Y | ✅ Y | ✅ Y | ✅ Y | ✅ Y | ✅ Y | [#282](https://github.com/evanp/activitypub-bot/issues/282) |
 | [Activityrelay](https://git.pleroma.social/pleroma/relay) | ? | ? | ? | ? | ? | ? | ? |
 | [Akkoma](https://akkoma.dev/AkkomaGang/akkoma) | ? | ? | ? | ? | ? | ? | ? |
 | [BadgeFed](https://badgefed.org/) | ? | ? | ? | ? | ? | ? | ? |
