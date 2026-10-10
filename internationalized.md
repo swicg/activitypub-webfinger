@@ -189,7 +189,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 | [Fedibird](https://github.com/fedibird/mastodon) | ? | ? | ? | ? | ? | ? | ? |
 | [Firefish](https://fedidb.com/software/firefish) | ? | ? | ? | ? | ? | ? | ? |
 | [Forgejo](https://fedidb.com/software/forgejo) | ? | ? | ? | ? | ? | ? | ? |
-| [Forte](https://codeberg.org/fortified/forte) | ✅ Y | ✅ Y | ✅ Y | ✅ Y | ✅ Y | ✅ Y | [^2] |
+| [Forte](https://codeberg.org/fortified/forte) | ✅ Y | [^2] | ✅ Y | ✅ Y | ✅ Y | ✅ Y | ? |
 | [Foundkey](https://akkoma.dev/FoundKeyGang/FoundKey) | ? | ? | ? | ? | ? | ? | ? |
 | [frequency](https://frequency.app/) | ? | ? | ? | ? | ? | ? | ? |
 | [Friendica](https://friendi.ca/) | ? | ? | ? | ? | ? | ? | ? |
@@ -234,7 +234,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 | [Smithereen](https://smithereen.software/) | ? | ? | ? | ? | ? | ? | ? |
 | [Snac](https://codeberg.org/grunfink/snac2) | ? | ? | ? | ? | ? | ? | ? |
 | [stegodon](https://stegodon.social/) | ? | ? | ? | ? | ? | ? | ? |
-| [streams repository](https://codeberg.org/streams/streams) | ✅ Y | ✅ Y | ✅ Y | ✅ Y | ✅ Y | ✅ Y | [^2] |
+| [streams repository](https://codeberg.org/streams/streams) | ✅ Y | [^2] | ✅ Y | ✅ Y | ✅ Y | ✅ Y | ? |
 | [Takahe](https://jointakahe.org/) | ? | ? | ? | ? | ? | ? | ? |
 | [Threads](https://threads.net/) | ? | ? | ? | ? | ? | ? | ? |
 | [tootik](https://github.com/dimkr/tootik) | ? | ? | ? | ? | ? | ? | ? |
@@ -246,7 +246,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 | [WriteFreely](https://writefreely.org/) | ? | ? | ? | ? | ? | ? | ? |
 
 [^1]: [tags.pub](https://tags.pub/), [groups.pub](https://groups.pub/), [activitypub.bot](https://activitypub.bot/)
-[^2]: IDN (punycode) encoded for federation and translated internally for display. Uses 'petnames' for easier mentioning and searching.
+[^2]: IDN (punycode) encoded for federation and translated internally for display. Remote usernames which use either form (UTF-8 or IDN) are handled correctly. Uses 'petnames' for easier mentioning and searching.
 
 ## Library matrix
 
