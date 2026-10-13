@@ -247,8 +247,8 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 | [WriteFreely](https://writefreely.org/) | ? | ? | ? | ? | ? | ? | ? |
 
 [^1]: [tags.pub](https://tags.pub/), [groups.pub](https://groups.pub/), [activitypub.bot](https://activitypub.bot/)
-[^2]: IDN (punycode) encoded for federation and translated internally for display. Remote usernames which use either form (UTF-8 or IDN) are handled correctly. Uses 'petnames' for easier mentioning and searching.
 [^5]: Standalone WebFinger plugin. WordPress logins are ASCII only, so a non-ASCII username is set as a custom WebFinger resource on the profile page.
+[^2]: IDN (punycode) encoded for federation and translated internally for display, as Mastodon currently rejects actor records with non-ASCII usernames; and these also violate other protocol specifications which this software traditionally federates with. Remote usernames which use either form (UTF-8 or IDN) are handled correctly. Uses 'petnames' for easier mentioning and searching.
 
 ## Library matrix
 
