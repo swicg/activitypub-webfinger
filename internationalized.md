@@ -195,7 +195,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 | [Akkoma](https://akkoma.dev/AkkomaGang/akkoma) | ? | ? | ? | ? | ? | ? | ? |
 | [BadgeFed](https://badgefed.org/) | ? | ? | ? | ? | ? | ? | ? |
 | [Betula](https://betula.mycorrhiza.wiki/) | ? | ? | ? | ? | ? | ? | ? |
-| [Bonfire](https://bonfirenetworks.org/) | ? | ? | ? | ? | ? | ? | ? |
+| [Bonfire](https://bonfirenetworks.org/) | ✅ Y | ✅ Y | ✅ Y | ✅ Y | ✅ Y | ✅ Y | [^7] |
 | [Bookwyrm](https://joinbookwyrm.com/) | ? | ? | ? | ? | ? | ? | ? |
 | [Bridgy-fed](https://fed.brid.gy/) | ? | ? | ? | ? | ? | ? | ? |
 | [browser.pub](https://browser.pub/) | ? | ? | ? | ? | ? | ? | ? |
@@ -266,6 +266,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 [^1]: [tags.pub](https://tags.pub/), [groups.pub](https://groups.pub/), [activitypub.bot](https://activitypub.bot/)
 [^5]: Standalone WebFinger plugin. WordPress logins are ASCII only, so a non-ASCII username is set as a custom WebFinger resource on the profile page.
 [^2]: IDN (punycode) encoded for federation and translated internally for display, as Mastodon currently rejects actor records with non-ASCII usernames; and these also violate other protocol specifications which this software traditionally federates with. Remote usernames which use either form (UTF-8 or IDN) are handled correctly. Uses 'petnames' for easier mentioning and searching.
+[^7]: From 1.0.8. Hosts are IDNA (punycode) encoded for WebFinger and federation. Creating non-ASCII local usernames is opt-in per instance (`UNICODE_USERNAMES=true` in env), since some software can't yet find or mention them. 
 
 ## Library matrix
 
@@ -280,12 +281,14 @@ The table has the following columns:
 
 | Software | Forward | Reverse | Issue(s) |
 | -------- | ------- | ------- | -------- |
+| [activity_pub](https://github.com/bonfire-networks/activity_pub) (Elixir) | ✅ Y | ✅ Y | [^6] |
 | [activitypub-webfinger](https://github.com/social-web-foundation/activitypub-webfinger) | ✅ Y [^3] | ✅ Y [^3] | [#1](https://github.com/social-web-foundation/activitypub-webfinger/issues/1) |
 | [Fedipub](https://fedipub.dev) | ? | ? | [#62](https://gitlab.com/fedipub/fedipub/-/work_items/62) |
 | [webfinger.js](https://github.com/silverbucket/webfinger.js) | ✅ Y [^4] | N/A | [#179](https://github.com/silverbucket/webfinger.js/issues/179) |
 
 [^3]: From version 0.3.0
 [^4]: v3.1.0+
+[^6]: Lookups send the userpart percent-encoded and the host as an A-label. Handles built from an actor use its unencoded `preferredUsername` (or the decoded last segment of its id) with the host's A-label.
 
 ## Submitting data
 
