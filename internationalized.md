@@ -56,7 +56,7 @@ Some example host values (see also [Sample data](#sample-data) below):
 
 ### acct: URI
 
-In `acct:` URIs, the `userpart` is percent-encoded, and the `host` is encoded per IDNA.
+In `acct:` URIs, the `userpart` is percent-encoded, and the `host` is encoded as an A-label per IDNA.
 
 Some examples:
 
@@ -92,27 +92,31 @@ Note that the `%` characters in the `acct:` URI are themselves percent-encoded i
 
 ### ActivityPub object IDs
 
-ActivityPub objects, including actors, activities, and collections, use HTTPS URIs as identifiers. These should use the IDNA A-label for the host. For example:
+ActivityPub objects, including actors, activities, and collections, use HTTPS IRIs as identifiers. These IRIs can include non-ASCII characters, or they can use URI-encoded form; it's up to the publisher. ActivityPub object ids are opaque and immutable, so consumers should not modify them for comparison or retrieval.
+
+This object has an A-label form of the hostname as part of the `id`.
 
 ```json
 {
   "@context": "https://www.w3.org/ns/activitystreams",
-  "id": "https://xn--d5b6ci4b4b3a.example/note/35",
-  "type": "Note",
-  "content": "Hello, World!"
+  "id": "https://xn--d5b6ci4b4b3a.example/object/35",
+  "type": "Object",
+  "summary": "An ActivityPub object with A-label form for the hostname in the id"
 }
 ```
 
-Some ActivityPub implementations include the username in URLs. These should be percent-encoded in object IDs.
+The following collection uses non-ASCII characters in the ID, both for the hostname and in the pathname of the HTTPS IRI.
 
 ```json
 {
   "@context": "https://www.w3.org/ns/activitystreams",
-  "id": "https://xn--4kcoa2bca5aa0vzacf2mdd.example/user/%D0%B8%D0%B2%D0%B0%D0%BD/followers",
+  "id": "https://எடுத்துக்காட்டு.example/user/иван/followers",
   "type": "OrderedCollection",
   "summary": "Followers of иван@எடுத்துக்காட்டு.example"
 }
 ```
+
+Most high-level HTTP client interfaces, like [fetch()](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch), [requests](https://docs.python-requests.org/en/stable/) or the [URL API](https://developer.mozilla.org/en-US/docs/Web/API/URL_API), can transparently handle HTTPS IRIs.
 
 ### preferredUsername
 
@@ -150,6 +154,7 @@ If the publisher uses the (less preferred) `acct:` URI format, it should be enco
   "webfinger": "acct:%D9%84%D9%8A%D9%84%D9%89@xn--mxd7a1d.example"
 }
 ```
+
 ### Sample data
 
 It is helpful to test handles which include a variety of realistic characters and scripts. Bugs may exist which are triggered only by certain character features.
