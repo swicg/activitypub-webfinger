@@ -20,7 +20,7 @@ An `acct:` URI has the form `userpart@host`. Per the [internationalization consi
 
 `userpart` must match the [PRECIS IdentifierClass](https://www.rfc-editor.org/info/rfc8264/#section-4.2). This includes "letters", "numbers", and a few ASCII punctuation marks.
 
-Some example userpart values (see also [Sample data](#sample-data)) below):
+Some example userpart values (see also [Sample data](#sample-data) below):
 
 - `user1`
 - `renée`
@@ -40,7 +40,7 @@ Not every implementation will support every form of userpart described here.
 
 `host` must match the Internationalized Domain Names for Applications (IDNA) requirements for the Unicode form of a hostname in [RFC 5892](https://www.rfc-editor.org/info/rfc5892/).
 
-Some example host values (see also [Sample data](#sample-data)) below):
+Some example host values (see also [Sample data](#sample-data) below):
 
 - `ตัวอย่าง.example`
 - `উদাহরণ.example`
@@ -152,16 +152,16 @@ If the publisher uses the (less preferred) `acct:` URI format, it should be enco
 ```
 ### Sample data
 
-It is helpful to test handles which include a variety of realistic characters and scripts. Bugs may exist which are triggered only by certain character features. 
+It is helpful to test handles which include a variety of realistic characters and scripts. Bugs may exist which are triggered only by certain character features.
 For instance, code which works with handles containing left-to-right scripts, like Chinese, might not work with right-to-left scripts like Arabic.
 
-The text file [**UASG004A Test Cases for UA Readiness Evaluation - Data EN**](https://uasg.tech/download/uasg-004a-use-cases-for-ua-readiness-evaluation-data-en/) contains over 80 email addresses and domain names in about 30 scripts. 
+The text file [**UASG004A Test Cases for UA Readiness Evaluation - Data EN**](https://uasg.tech/download/uasg-004a-use-cases-for-ua-readiness-evaluation-data-en/) contains over 80 email addresses and domain names in about 30 scripts.
 It is CSV-structured for reliable machine parsing.
 The accompanying document [**UASG 004 Test Cases for UA Readiness Evaluation EN**](https://uasg.tech/download/uasg-004-use-cases-for-ua-readiness-evaluation-en/) explains the intention for the data.
-These can be adapted as webfinger handles, and as userparts and hosts. 
-They originate from ICANN's Universal Acceptance project c. 2021. 
-As of 2026, most of these domain names host live HTTP servers with placeholder pages, 
-and the email addresses reach automated responders, operated by ICANN. There are not Fediverse servers hosted at these domains, however.  
+These can be adapted as webfinger handles, and as userparts and hosts.
+They originate from ICANN's Universal Acceptance project c. 2021.
+As of 2026, most of these domain names host live HTTP servers with placeholder pages,
+and the email addresses reach automated responders, operated by ICANN. There are not Fediverse servers hosted at these domains, however.
 
 ## Server and client matrix
 
