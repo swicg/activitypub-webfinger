@@ -20,7 +20,7 @@ An `acct:` URI has the form `userpart@host`. Per the [internationalization consi
 
 `userpart` must match the [PRECIS IdentifierClass](https://www.rfc-editor.org/info/rfc8264/#section-4.2). This includes "letters", "numbers", and a few ASCII punctuation marks.
 
-Some example userpart values (see also [Sample data](#sample-data)) below):
+Some example userpart values (see also [Sample data](#sample-data) below):
 
 - `user1`
 - `renée`
@@ -40,7 +40,7 @@ Not every implementation will support every form of userpart described here.
 
 `host` must match the Internationalized Domain Names for Applications (IDNA) requirements for the Unicode form of a hostname in [RFC 5892](https://www.rfc-editor.org/info/rfc5892/).
 
-Some example host values (see also [Sample data](#sample-data)) below):
+Some example host values (see also [Sample data](#sample-data) below):
 
 - `ตัวอย่าง.example`
 - `উদাহরণ.example`
@@ -56,7 +56,7 @@ Some example host values (see also [Sample data](#sample-data)) below):
 
 ### acct: URI
 
-In `acct:` URIs, the `userpart` is percent-encoded, and the `host` is encoded per IDNA.
+In `acct:` URIs, the `userpart` is percent-encoded, and the `host` is encoded as an A-label per IDNA.
 
 Some examples:
 
@@ -92,27 +92,31 @@ Note that the `%` characters in the `acct:` URI are themselves percent-encoded i
 
 ### ActivityPub object IDs
 
-ActivityPub objects, including actors, activities, and collections, use HTTPS URIs as identifiers. These should use the IDNA A-label for the host. For example:
+ActivityPub objects, including actors, activities, and collections, use HTTPS IRIs as identifiers. These IRIs can include non-ASCII characters, or they can use URI-encoded form; it's up to the publisher. ActivityPub object ids are opaque and immutable, so consumers should not modify them for comparison or retrieval.
+
+This object has an A-label form of the hostname as part of the `id`.
 
 ```json
 {
   "@context": "https://www.w3.org/ns/activitystreams",
-  "id": "https://xn--d5b6ci4b4b3a.example/note/35",
-  "type": "Note",
-  "content": "Hello, World!"
+  "id": "https://xn--d5b6ci4b4b3a.example/object/35",
+  "type": "Object",
+  "summary": "An ActivityPub object with A-label form for the hostname in the id"
 }
 ```
 
-Some ActivityPub implementations include the username in URLs. These should be percent-encoded in object IDs.
+The following collection uses non-ASCII characters in the ID, both for the hostname and in the pathname of the HTTPS IRI.
 
 ```json
 {
   "@context": "https://www.w3.org/ns/activitystreams",
-  "id": "https://xn--4kcoa2bca5aa0vzacf2mdd.example/user/%D0%B8%D0%B2%D0%B0%D0%BD/followers",
+  "id": "https://எடுத்துக்காட்டு.example/user/иван/followers",
   "type": "OrderedCollection",
   "summary": "Followers of иван@எடுத்துக்காட்டு.example"
 }
 ```
+
+Most high-level HTTP client interfaces, like [fetch()](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch), [requests](https://docs.python-requests.org/en/stable/) or the [URL API](https://developer.mozilla.org/en-US/docs/Web/API/URL_API), can transparently handle HTTPS IRIs.
 
 ### preferredUsername
 
@@ -150,18 +154,19 @@ If the publisher uses the (less preferred) `acct:` URI format, it should be enco
   "webfinger": "acct:%D9%84%D9%8A%D9%84%D9%89@xn--mxd7a1d.example"
 }
 ```
+
 ### Sample data
 
-It is helpful to test handles which include a variety of realistic characters and scripts. Bugs may exist which are triggered only by certain character features. 
+It is helpful to test handles which include a variety of realistic characters and scripts. Bugs may exist which are triggered only by certain character features.
 For instance, code which works with handles containing left-to-right scripts, like Chinese, might not work with right-to-left scripts like Arabic.
 
-The text file [**UASG004A Test Cases for UA Readiness Evaluation - Data EN**](https://uasg.tech/download/uasg-004a-use-cases-for-ua-readiness-evaluation-data-en/) contains over 80 email addresses and domain names in about 30 scripts. 
+The text file [**UASG004A Test Cases for UA Readiness Evaluation - Data EN**](https://uasg.tech/download/uasg-004a-use-cases-for-ua-readiness-evaluation-data-en/) contains over 80 email addresses and domain names in about 30 scripts.
 It is CSV-structured for reliable machine parsing.
 The accompanying document [**UASG 004 Test Cases for UA Readiness Evaluation EN**](https://uasg.tech/download/uasg-004-use-cases-for-ua-readiness-evaluation-en/) explains the intention for the data.
-These can be adapted as webfinger handles, and as userparts and hosts. 
-They originate from ICANN's Universal Acceptance project c. 2021. 
-As of 2026, most of these domain names host live HTTP servers with placeholder pages, 
-and the email addresses reach automated responders, operated by ICANN. There are not Fediverse servers hosted at these domains, however.  
+These can be adapted as webfinger handles, and as userparts and hosts.
+They originate from ICANN's Universal Acceptance project c. 2021.
+As of 2026, most of these domain names host live HTTP servers with placeholder pages,
+and the email addresses reach automated responders, operated by ICANN. There are not Fediverse servers hosted at these domains, however.
 
 ## Server and client matrix
 
@@ -190,7 +195,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 | [Akkoma](https://akkoma.dev/AkkomaGang/akkoma) | ? | ? | ? | ? | ? | ? | ? |
 | [BadgeFed](https://badgefed.org/) | ? | ? | ? | ? | ? | ? | ? |
 | [Betula](https://betula.mycorrhiza.wiki/) | ? | ? | ? | ? | ? | ? | ? |
-| [Bonfire](https://bonfirenetworks.org/) | ? | ? | ? | ? | ? | ? | ? |
+| [Bonfire](https://bonfirenetworks.org/) | ✅ Y | ✅ Y | ✅ Y | ✅ Y | ✅ Y | ✅ Y | [^8] |
 | [Bookwyrm](https://joinbookwyrm.com/) | ? | ? | ? | ? | ? | ? | ? |
 | [Bridgy-fed](https://fed.brid.gy/) | ? | ? | ? | ? | ? | ? | ? |
 | [browser.pub](https://browser.pub/) | ? | ? | ? | ? | ? | ? | ? |
@@ -263,6 +268,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 [^2]: IDN (punycode) encoded for federation and translated internally for display, as Mastodon currently rejects actor records with non-ASCII usernames; and these also violate other protocol specifications which this software traditionally federates with. Remote usernames which use either form (UTF-8 or IDN) are handled correctly. Uses 'petnames' for easier mentioning and searching.
 [^6]: The [ActivityPub plugin](https://wordpress.org/plugins/activitypub/). WordPress logins are ASCII only, so usernames can not be non-ASCII.
 [^7]: With the site URL set to the A-label. With a Unicode site URL, actor IDs keep the Unicode host.
+[^8]: From 1.0.8. Hosts are IDNA (punycode) encoded for WebFinger and federation. Creating non-ASCII local usernames is opt-in per instance (`UNICODE_USERNAMES=true` in env), since some software can't yet find or mention them. 
 
 ## Library matrix
 
@@ -277,12 +283,14 @@ The table has the following columns:
 
 | Software | Forward | Reverse | Issue(s) |
 | -------- | ------- | ------- | -------- |
+| [activity_pub](https://github.com/bonfire-networks/activity_pub) (Elixir) | ✅ Y | ✅ Y | [^6] |
 | [activitypub-webfinger](https://github.com/social-web-foundation/activitypub-webfinger) | ✅ Y [^3] | ✅ Y [^3] | [#1](https://github.com/social-web-foundation/activitypub-webfinger/issues/1) |
 | [Fedipub](https://fedipub.dev) | ? | ? | [#62](https://gitlab.com/fedipub/fedipub/-/work_items/62) |
 | [webfinger.js](https://github.com/silverbucket/webfinger.js) | ✅ Y [^4] | N/A | [#179](https://github.com/silverbucket/webfinger.js/issues/179) |
 
 [^3]: From version 0.3.0
 [^4]: v3.1.0+
+[^6]: Lookups send the userpart percent-encoded and the host as an A-label. Handles built from an actor use its unencoded `preferredUsername` (or the decoded last segment of its id) with the host's A-label.
 
 ## Submitting data
 
