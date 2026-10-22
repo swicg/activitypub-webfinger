@@ -206,7 +206,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 | [Fedibird](https://github.com/fedibird/mastodon) | ? | ? | ? | ? | ? | ? | ? |
 | [Firefish](https://fedidb.com/software/firefish) | ? | ? | ? | ? | ? | ? | ? |
 | [Forgejo](https://fedidb.com/software/forgejo) | ? | ? | ? | ? | ? | ? | ? |
-| [Forte](https://codeberg.org/fortified/forte) | ✅ Y | [^8] | ✅ Y | ✅ Y | ✅ Y | ✅ Y | ? |
+| [Forte](https://codeberg.org/fortified/forte) | ✅ Y |  ✅ Y | ✅ Y | ✅ Y | ✅ Y | ✅ Y | [^8] |
 | [Foundkey](https://akkoma.dev/FoundKeyGang/FoundKey) | ? | ? | ? | ? | ? | ? | ? |
 | [frequency](https://frequency.app/) | ? | ? | ? | ? | ? | ? | ? |
 | [Friendica](https://friendi.ca/) | ? | ? | ? | ? | ? | ? | ? |
