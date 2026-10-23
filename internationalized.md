@@ -206,7 +206,7 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 | [Fedibird](https://github.com/fedibird/mastodon) | ? | ? | ? | ? | ? | ? | ? |
 | [Firefish](https://fedidb.com/software/firefish) | ? | ? | ? | ? | ? | ? | ? |
 | [Forgejo](https://fedidb.com/software/forgejo) | ? | ? | ? | ? | ? | ? | ? |
-| [Forte](https://codeberg.org/fortified/forte) | ✅ Y | [^2] | ✅ Y | ✅ Y | ✅ Y | ✅ Y | ? |
+| [Forte](https://codeberg.org/fortified/forte) | ✅ Y |  ✅ Y | ✅ Y | ✅ Y | ✅ Y | ✅ Y | [^8] |
 | [Foundkey](https://akkoma.dev/FoundKeyGang/FoundKey) | ? | ? | ? | ? | ? | ? | ? |
 | [frequency](https://frequency.app/) | ? | ? | ? | ? | ? | ? | ? |
 | [Friendica](https://friendi.ca/) | ? | ? | ? | ? | ? | ? | ? |
@@ -267,7 +267,8 @@ Thanks to [FediDB](https://fedidb.com/software) for the seed version of the soft
 [^5]: Standalone WebFinger plugin. WordPress logins are ASCII only, so a non-ASCII username is set as a custom WebFinger resource on the profile page.
 [^2]: IDN (punycode) encoded for federation and translated internally for display, as Mastodon currently rejects actor records with non-ASCII usernames; and these also violate other protocol specifications which this software traditionally federates with. Remote usernames which use either form (UTF-8 or IDN) are handled correctly. Uses 'petnames' for easier mentioning and searching.
 [^7]: From 1.0.8. Hosts are IDNA (punycode) encoded for WebFinger and federation. Creating non-ASCII local usernames is opt-in per instance (`UNICODE_USERNAMES=true` in env), since some software can't yet find or mention them. 
-
+[^8]:  Both UTF-8 and IDNA (punycode) forms are supported and are considered interchangeable when referring to local usernames. Site configuration determines which form is sent to other sites. Default is IDNA (punycode).
+  
 ## Library matrix
 
 This matrix is for tracking ActivityPub software library support for non-ASCII Webfinger handles.
